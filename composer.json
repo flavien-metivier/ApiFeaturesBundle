@@ -1,0 +1,43 @@
+{
+    "name": "qualitycode/api-features-bundle",
+    "type": "symfony-bundle",
+    "description": "An easy way to build Api with FosRestBundle ",
+    "keywords": ["api","FosRestBundle"],
+    "homepage": "https://github.com/QualityCodePhp/ApiFeaturesBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Flavien METIVIER",
+            "email": "flavien.metivier@quaity-code.fr",
+            "homepage": "http://www.quality-code.fr",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "symfony/http-kernel": "~3.2",
+        "jms/serializer-bundle": "^1.1",
+        "nelmio/api-doc-bundle": "^2.13",
+        "willdurand/hateoas-bundle": "^1.2",
+        "friendsofsymfony/rest-bundle": "^2.1",
+        "gedmo/doctrine-extensions": "^2.4",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "symfony/framework-bundle": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "QualityCode\\ApiFeaturesBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "QualityCode\\ApiFeaturesBundle\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "symfony/yaml": "~3.2",
+        "symfony/console": "~3.2",
+        "phpunit/phpunit": "^5.7",
+        "symfony/process": "~3.2"
+    }
+}
