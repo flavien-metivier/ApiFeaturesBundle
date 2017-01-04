@@ -38,6 +38,8 @@
         "symfony/yaml": "~3.2",
         "symfony/console": "~3.2",
         "phpunit/phpunit": "^5.7",
-        "symfony/process": "~3.2"
+        "symfony/process": "~3.2",
+        "hautelook/alice-bundle": "^1.4",
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
     }
 }

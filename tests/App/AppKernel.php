@@ -13,6 +13,9 @@ class AppKernel extends Kernel
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new QualityCodeApiFeaturesBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new \Hautelook\AliceBundle\HautelookAliceBundle(),
+
         ];
     }
 
