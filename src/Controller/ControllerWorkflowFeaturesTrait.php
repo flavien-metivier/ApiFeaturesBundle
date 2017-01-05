@@ -10,7 +10,7 @@ use Symfony\Component\Workflow\Workflow;
 /**
  * Add workflow features on a controller.
  *
- * @author fmetivier
+ * @author flavien-metivier
  */
 trait ControllerWorkflowFeaturesTrait
 {

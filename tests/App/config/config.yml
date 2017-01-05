@@ -1,4 +1,100 @@
+parameters:
+    locale: fr
+
 # FrameworkBundle Configuration
 framework:
     secret: This is a secret, change me
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'
+        strict_requirements: ~
+    test: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+        name: fake
+    fragments:       ~
+    http_method_override: true
+    assets: ~
 
+doctrine:
+    dbal:
+        driver:  pdo_sqlite
+        user:    test
+        path:    "%kernel.root_dir%/sqlite.db.cache"
+        #memory: true
+        charset: utf8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            fake_entities:
+                type: annotation
+                dir: '%kernel.root_dir%/Entity'
+                is_bundle: false
+                prefix: QualityCode\ApiFeaturesBundle\Tests\App\Entity
+                alias: Fake
+            gedmo_loggable:
+                type: annotation
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
+                is_bundle: false
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+        metadata_cache_driver: array
+        query_cache_driver:    array
+        result_cache_driver:   array
+
+stof_doctrine_extensions:
+    default_locale: fr_FR
+    orm:
+        default:
+            timestampable: true
+            softdeleteable: true
+            loggable: true
+
+
+fos_rest:
+    serializer:
+        serialize_null:  true
+    routing_loader:
+        include_format: false
+    view:
+        view_response_listener: true
+    format_listener:
+        rules:
+            - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+    body_listener:
+        array_normalizer: fos_rest.normalizer.camel_keys
+
+nelmio_api_doc:
+    name: Fake Api
+    sandbox:
+        accept_type:        application/json
+        body_format:
+            formats:        null
+            default_format: json
+        request_format:
+            formats:
+                json:       application/json
+            method:         accept_header
+            default_format: json
+
+bazinga_hateoas:
+    metadata:
+        cache:      file
+        file_cache:
+            dir:    "%kernel.cache_dir%/hateoas"

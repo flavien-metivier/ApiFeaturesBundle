@@ -2,7 +2,7 @@
 
 namespace QualityCode\ApiFeaturesBundle\Tests\Unit\Controller;
 
-use QualityCode\ApiFeaturesBundle\Tests\App\Controller\BasicFeaturesController;
+use QualityCode\ApiFeaturesBundle\Tests\App\Controller\FakeController;
 
 class BasicFeaturesControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class BasicFeaturesControllerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->controller = new BasicFeaturesController();
+        $this->controller = new FakeController();
     }
 
     protected function tearDown()
@@ -20,7 +20,6 @@ class BasicFeaturesControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testControllerWithControllerBasicFeaturesTraitHasMethods()
     {
-        $this->assertTrue(method_exists($this->controller, 'getCollection'));
         $this->assertTrue(method_exists($this->controller, 'getCollectionPaginated'));
         $this->assertTrue(method_exists($this->controller, 'getAnElement'));
         $this->assertTrue(method_exists($this->controller, 'createAnElement'));

@@ -1,0 +1,4 @@
+QualityCode\ApiFeaturesBundle\Tests\App\Entity\Fake:
+    fake_{1..3}:
+        field1: <randomLetter()>
+        field2: <text(45)>

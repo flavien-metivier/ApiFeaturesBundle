@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Description of TimestampableFeatures.
  *
- * @author fmetivier
+ * @author flavien-metivier
  */
 trait TimestampableFeaturesTrait
 {
