@@ -36,8 +36,7 @@ trait PaginationAndSortingFeaturesTrait
         $fields = array_keys($this->getClassMetadata()->fieldMappings);
         $queryBuilder = $this->createQueryBuilder('r');
 
-        $queryBuilder = $this->addOrderBy($queryBuilder, $fields, $sorting);
-        $queryBuilder = $this->addSearchBy($queryBuilder, $fields, $searching);
+        $this->addOrderBy($queryBuilder, $fields, $sorting)->addSearchBy($queryBuilder, $fields, $searching);
 
         $pagerAdapter = new DoctrineORMAdapter($queryBuilder);
         $pager = new Pagerfanta($pagerAdapter);
@@ -54,7 +53,7 @@ trait PaginationAndSortingFeaturesTrait
      *
      * @return QueryBuilder
      */
-    protected function addOrderBy(QueryBuilder $queryBuilder, array $fields, array $sorting)
+    protected function addOrderBy(QueryBuilder &$queryBuilder, array $fields, array $sorting)
     {
         foreach ($fields as $field) {
             if (isset($sorting[$field])) {
@@ -63,7 +62,7 @@ trait PaginationAndSortingFeaturesTrait
             }
         }
 
-        return $queryBuilder;
+        return $this;
     }
 
     /**
@@ -73,7 +72,7 @@ trait PaginationAndSortingFeaturesTrait
      *
      * @return QueryBuilder
      */
-    protected function addSearchBy(QueryBuilder $queryBuilder, array $fields, array $searching)
+    protected function addSearchBy(QueryBuilder &$queryBuilder, array $fields, array $searching)
     {
         foreach ($fields as $field) {
             if (isset($searching[$field])) {
@@ -82,6 +81,6 @@ trait PaginationAndSortingFeaturesTrait
             }
         }
 
-        return $queryBuilder;
+        return $this;
     }
 }

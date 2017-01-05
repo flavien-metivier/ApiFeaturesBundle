@@ -12,7 +12,7 @@ use Symfony\Component\Form\Form;
 /**
  * Description of controllerBasicFeatures.
  *
- * @author fmetivier
+ * @author flavien-metivier
  */
 trait ControllerBasicFeaturesTrait
 {
@@ -35,20 +35,6 @@ trait ControllerBasicFeaturesTrait
      * @return Form
      */
     abstract protected function createForm($type, $data = null, array $options = array());
-
-    /**
-     * @param string $repositoryName
-     *
-     * @return array
-     */
-    protected function getCollection($repositoryName)
-    {
-        $collection = $this->get('doctrine.orm.entity_manager')
-                ->getRepository($repositoryName)
-                ->findAll();
-
-        return $collection;
-    }
 
     /**
      * @param Request $request
