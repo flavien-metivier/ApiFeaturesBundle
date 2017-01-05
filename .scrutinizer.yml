@@ -58,9 +58,9 @@ build:
             version: 7.0.8
     tests:
         before:
-            - bin/console doctrine:database:create -n
-            - bin/console doctrine:schema:create -n
-            - bin/console hautelook_alice:doctrine:fixtures:load --purge-with-truncate -n
+            - tests/App/console doctrine:database:create -n
+            - tests/App/console doctrine:schema:create -n
+            - tests/App/console hautelook_alice:doctrine:fixtures:load --purge-with-truncate --fixtures=./tests/App/DataFixtures/ORM -n
         override:
             -
                 command: 'phpunit --coverage-clover=clover.xml'
