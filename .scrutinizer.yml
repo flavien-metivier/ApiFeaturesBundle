@@ -57,10 +57,10 @@ build:
         php:
             version: 7.0.8
     tests:
-#        before:
-#            - bin/console doctrine:database:create -n
-#            - bin/console doctrine:schema:create -n
-#            - bin/console hautelook_alice:doctrine:fixtures:load --purge-with-truncate -n
+        before:
+            - bin/console doctrine:database:create -n
+            - bin/console doctrine:schema:create -n
+            - bin/console hautelook_alice:doctrine:fixtures:load --purge-with-truncate -n
         override:
             -
                 command: 'phpunit --coverage-clover=clover.xml'
