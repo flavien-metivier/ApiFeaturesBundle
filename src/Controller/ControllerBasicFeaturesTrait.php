@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use Hateoas\Configuration\Route;
 use Hateoas\Representation\Factory\PagerfantaFactory;
+use Hateoas\Representation\PaginatedRepresentation;
 use Symfony\Component\Form\Form;
 
 /**
@@ -40,14 +41,14 @@ trait ControllerBasicFeaturesTrait
      * @param Request $request
      * @param string  $repositoryName
      *
-     * @return array
+     * @return PaginatedRepresentation
      */
     protected function getCollectionPaginated(Request $request, $repositoryName)
     {
         $limit = $request->query->getInt('limit', 10);
         $page = $request->query->getInt('page', 1);
-        $sorting = $request->query->get('sorting', array());
-        $searching = $request->query->get('searching', array());
+        $sorting = $this->get('fos_rest.normalizer.camel_keys')->normalize($request->query->get('sorting', array()));
+        $searching = $this->get('fos_rest.normalizer.camel_keys')->normalize($request->query->get('searching', array()));
 
         $collectionPager = $this->get('doctrine.orm.entity_manager')
                 ->getRepository($repositoryName)
