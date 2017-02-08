@@ -24,6 +24,7 @@ class FakeController extends Controller
      * @ApiDoc(
      *      resource=true,
      *      description="Récupérer une liste d'fake",
+     *      output="Hateoas\Representation\PaginatedRepresentation",
      * )
      *
      * @Rest\View()
