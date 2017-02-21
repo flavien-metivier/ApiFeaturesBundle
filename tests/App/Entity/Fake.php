@@ -2,11 +2,11 @@
 
 namespace QualityCode\ApiFeaturesBundle\Tests\App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use QualityCode\ApiFeaturesBundle\Entity\TimestampableFeaturesTrait;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Hateoas\Configuration\Annotation as Hateoas;
+use QualityCode\ApiFeaturesBundle\Entity\TimestampableFeaturesTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Fake.

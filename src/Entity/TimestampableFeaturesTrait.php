@@ -2,8 +2,8 @@
 
 namespace QualityCode\ApiFeaturesBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Description of TimestampableFeatures.

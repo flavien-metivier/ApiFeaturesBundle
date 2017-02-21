@@ -2,9 +2,9 @@
 
 namespace QualityCode\ApiFeaturesBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\View;
 use Symfony\Component\Workflow\Workflow;
 
 /**
@@ -32,7 +32,7 @@ trait ControllerWorkflowFeaturesTrait
      *
      * @return Form
      */
-    abstract protected function createForm($type, $data = null, array $options = array());
+    abstract protected function createForm($type, $data = null, array $options = []);
 
     /**
      * @param Request $request
@@ -51,7 +51,7 @@ trait ControllerWorkflowFeaturesTrait
             return View::create(['message' => 'Element not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $workflow = $this->get('workflow.'.$workflowName);
+        $workflow = $this->get('workflow.' . $workflowName);
 
         return $workflow->getEnabledTransitions($element);
     }
@@ -70,7 +70,7 @@ trait ControllerWorkflowFeaturesTrait
                 ->find($request->get('id'));
 
         $newState = $request->get('state_name');
-        $workflow = $this->get('workflow.'.$workflowName);
+        $workflow = $this->get('workflow.' . $workflowName);
 
         $can = $this->checkIfElementCanChangeStatut($newState, $workflow, $element);
         if ($can !== false) {

@@ -23,10 +23,10 @@ class FakeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => '\QualityCode\ApiFeaturesBundle\Tests\App\Entity\Fake',
             'csrf_protection' => false,
-        ));
+        ]);
     }
 
     /**

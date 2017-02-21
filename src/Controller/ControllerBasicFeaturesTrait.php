@@ -2,13 +2,13 @@
 
 namespace QualityCode\ApiFeaturesBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use Hateoas\Configuration\Route;
 use Hateoas\Representation\Factory\PagerfantaFactory;
 use Hateoas\Representation\PaginatedRepresentation;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Description of controllerBasicFeatures.
@@ -35,7 +35,7 @@ trait ControllerBasicFeaturesTrait
      *
      * @return Form
      */
-    abstract protected function createForm($type, $data = null, array $options = array());
+    abstract protected function createForm($type, $data = null, array $options = []);
 
     /**
      * @param Request $request
@@ -47,8 +47,8 @@ trait ControllerBasicFeaturesTrait
     {
         $limit = $request->query->getInt('limit', 10);
         $page = $request->query->getInt('page', 1);
-        $sorting = $this->get('fos_rest.normalizer.camel_keys')->normalize($request->query->get('sorting', array()));
-        $searching = $this->get('fos_rest.normalizer.camel_keys')->normalize($request->query->get('searching', array()));
+        $sorting = $this->get('fos_rest.normalizer.camel_keys')->normalize($request->query->get('sorting', []));
+        $searching = $this->get('fos_rest.normalizer.camel_keys')->normalize($request->query->get('searching', []));
 
         $collectionPager = $this->get('doctrine.orm.entity_manager')
                 ->getRepository($repositoryName)
@@ -58,12 +58,12 @@ trait ControllerBasicFeaturesTrait
 
         return $pagerFactory->createRepresentation(
             $collectionPager,
-            new Route($request->get('_route'), array(
+            new Route($request->get('_route'), [
                 'limit' => $limit,
                 'page' => $page,
                 'sorting' => $sorting,
                 'searching' => $searching,
-            ))
+            ])
         );
     }
 

@@ -10,14 +10,14 @@ class FakeControllerTest extends WebTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->fieldsList = array(
+        $this->fieldsList = [
             'id',
             'field1',
             'field2',
             'created_at',
             'updated_at',
             'deleted_at',
-        );
+        ];
         $this->itemValues = [
             'field1' => 'fakevalue',
             'field2' => 'fakeValue',
