@@ -2,9 +2,9 @@
 
 namespace QualityCode\ApiFeaturesBundle\Controller;
 
+use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\View;
 use Symfony\Component\Workflow\Workflow;
 
 /**
@@ -32,7 +32,7 @@ trait ControllerWorkflowFeaturesTrait
      *
      * @return Form
      */
-    abstract protected function createForm($type, $data = null, array $options = array());
+    abstract protected function createForm($type, $data = null, array $options = []);
 
     /**
      * @param Request $request

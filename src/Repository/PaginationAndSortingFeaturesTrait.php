@@ -2,9 +2,9 @@
 
 namespace QualityCode\ApiFeaturesBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
-use Doctrine\ORM\QueryBuilder;
 
 trait PaginationAndSortingFeaturesTrait
 {
@@ -31,7 +31,7 @@ trait PaginationAndSortingFeaturesTrait
      *
      * @return Pagerfanta
      */
-    public function findAllPaginated($limit, $page, array $sorting = array(), array $searching = array())
+    public function findAllPaginated($limit, $page, array $sorting = [], array $searching = [])
     {
         $fields = array_keys($this->getClassMetadata()->fieldMappings);
         $queryBuilder = $this->createQueryBuilder('r');

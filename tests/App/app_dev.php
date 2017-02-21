@@ -1,12 +1,12 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use QualityCode\ApiFeaturesBundle\Tests\App\AppKernel;
+use Symfony\Component\HttpFoundation\Request;
 
 /** @var Composer\Autoload\ClassLoader $loader */
 $loader = require __DIR__.'/../../vendor/autoload.php';
-AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
 $kernel = new AppKernel('dev', true);
 $request = Request::createFromGlobals();

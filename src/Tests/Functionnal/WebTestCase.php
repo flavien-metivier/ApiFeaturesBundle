@@ -2,9 +2,9 @@
 
 namespace QualityCode\ApiFeaturesBundle\Tests\Functionnal;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Faker\Factory as FakerFactory;
+use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 
 class WebTestCase extends BaseWebTestCase
 {
@@ -14,6 +14,11 @@ class WebTestCase extends BaseWebTestCase
      * @var array
      */
     protected $fieldsList;
+
+    /**
+     * @var array
+     */
+    protected $fieldsDetails = [];
 
     /**
      * @var array
@@ -67,7 +72,7 @@ class WebTestCase extends BaseWebTestCase
         $this->checkStatusCodeAndContentType($client, 200);
         $item = json_decode($client->getResponse()->getContent());
 
-        $this->checkIfItemHasTheRightFieldsNumber((array) $item);
+        $this->checkIfItemHasTheRightFieldsNumber((array) $item, true);
         $this->checkIfItemHasFields((array) $item);
         $this->checkIfItemHasLinks((array) $item);
     }
@@ -82,7 +87,7 @@ class WebTestCase extends BaseWebTestCase
         $adresse = json_decode($client->getResponse()->getContent());
 
         $this->assertArrayHasKey('message', (array) $adresse);
-        $this->assertEquals('Element not found', $adresse->message);
+        $this->assertSame('Element not found', $adresse->message);
     }
 
     /**
@@ -93,13 +98,13 @@ class WebTestCase extends BaseWebTestCase
     {
         $client = static::createClient();
         $client->request(
-                $method, $route, array(), array(), array('CONTENT_TYPE' => 'application/json'), json_encode($this->itemValues)
+                $method, $route, [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($this->itemValues)
         );
 
         $this->checkStatusCodeAndContentType($client, 404);
         $item = json_decode($client->getResponse()->getContent());
         $this->assertArrayHasKey('message', (array) $item);
-        $this->assertEquals('Element not found', $item->message);
+        $this->assertSame('Element not found', $item->message);
     }
 
     /**
@@ -118,20 +123,20 @@ class WebTestCase extends BaseWebTestCase
 
         $client = $client = static::createClient();
         $client->request(
-                $method, $route, array(), array(), array('CONTENT_TYPE' => 'application/json'), json_encode($values)
+                $method, $route, [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($values)
         );
         $this->checkStatusCodeAndContentType($client, $statusCode);
         $item = json_decode($client->getResponse()->getContent(), true);
 
         if (!$mustHaveErrors) {
-            $this->checkIfItemHasTheRightFieldsNumber((array) $item);
+            $this->checkIfItemHasTheRightFieldsNumber((array) $item, true);
             $this->checkIfItemHasFields((array) $item);
             $this->checkIfItemHasLinks((array) $item);
             foreach ($values as $key => $value) {
-                $this->assertEquals($value, $item[$key]);
+                $this->assertSame($value, $item[$key]);
             }
         } else {
-            $this->assertEquals(3, sizeof((array) $item));
+            $this->assertSame(3, count((array) $item));
             $this->assertArrayHasKey('code', (array) $item);
             $this->assertArrayHasKey('message', (array) $item);
             $this->assertArrayHasKey('errors', (array) $item);
@@ -144,7 +149,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected function checkStatusCodeAndContentType(Client $client, int $statusCode)
     {
-        $this->assertEquals($statusCode, $client->getResponse()->getStatusCode());
+        $this->assertSame($statusCode, $client->getResponse()->getStatusCode());
         $this->assertTrue(
                 $client->getResponse()->headers->contains(
                         'Content-Type', 'application/json'
@@ -160,7 +165,7 @@ class WebTestCase extends BaseWebTestCase
         $client = static::createClient();
 
         $client->request('DELETE', $route);
-        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+        $this->assertSame(204, $client->getResponse()->getStatusCode());
     }
 
     /**
@@ -202,9 +207,13 @@ class WebTestCase extends BaseWebTestCase
     /**
      * @param array $item
      */
-    protected function checkIfItemHasTheRightFieldsNumber(array $item)
+    protected function checkIfItemHasTheRightFieldsNumber(array $item, $isDetails = false)
     {
-        $this->assertEquals(sizeof($this->fieldsList) + 1, sizeof((array) $item));
+        if ($isDetails) {
+            $this->assertSame(count($this->fieldsList) + count($this->fieldsDetails) + 1, count((array) $item));
+        } else {
+            $this->assertSame(count($this->fieldsList) + 1, count((array) $item));
+        }
     }
 
     /**
@@ -212,7 +221,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected function checkIfListHaveRightStructure(\stdClass $list)
     {
-        $this->assertEquals(1, sizeof($list));
+        $this->assertSame(1, count($list));
         $this->assertObjectHasAttribute('page', $list);
         $this->assertObjectHasAttribute('pages', $list);
         $this->assertObjectHasAttribute('limit', $list);
@@ -231,7 +240,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected function checkItemList(\stdClass $items, int $expectedSize)
     {
-        $this->assertEquals($expectedSize, sizeof($items->_embedded->items));
+        $this->assertSame($expectedSize, count($items->_embedded->items));
 
         foreach ($items->_embedded->items as $adresse) {
             $this->checkIfItemHasTheRightFieldsNumber((array) $adresse);

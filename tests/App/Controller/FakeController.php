@@ -2,14 +2,14 @@
 
 namespace QualityCode\ApiFeaturesBundle\Tests\App\Controller;
 
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use QualityCode\ApiFeaturesBundle\Controller\ControllerBasicFeaturesTrait;
+use QualityCode\ApiFeaturesBundle\Tests\App\Entity\Fake;
+use QualityCode\ApiFeaturesBundle\Tests\App\Form\FakeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use QualityCode\ApiFeaturesBundle\Tests\App\Entity\Fake;
-use QualityCode\ApiFeaturesBundle\Tests\App\Form\FakeType;
-use QualityCode\ApiFeaturesBundle\Controller\ControllerBasicFeaturesTrait;
 
 /**
  * Description of FakeController.
