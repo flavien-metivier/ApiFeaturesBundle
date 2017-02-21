@@ -53,12 +53,12 @@ trait PaginationAndSortingFeaturesTrait
      *
      * @return QueryBuilder
      */
-    protected function addOrderBy(QueryBuilder &$queryBuilder, array $fields, array $sorting)
+    protected function addOrderBy(QueryBuilder & $queryBuilder, array $fields, array $sorting)
     {
         foreach ($fields as $field) {
             if (isset($sorting[$field])) {
                 $direction = ($sorting[$field] === 'asc') ? 'asc' : 'desc';
-                $queryBuilder->addOrderBy('r.'.$field, $direction);
+                $queryBuilder->addOrderBy('r.' . $field, $direction);
             }
         }
 
@@ -72,12 +72,12 @@ trait PaginationAndSortingFeaturesTrait
      *
      * @return QueryBuilder
      */
-    protected function addSearchBy(QueryBuilder &$queryBuilder, array $fields, array $searching)
+    protected function addSearchBy(QueryBuilder & $queryBuilder, array $fields, array $searching)
     {
         foreach ($fields as $field) {
             if (isset($searching[$field])) {
-                $queryBuilder->orWhere($queryBuilder->expr()->like('r.'.$field, ':'.$field));
-                $queryBuilder->setParameter($field, '%'.$searching[$field].'%');
+                $queryBuilder->orWhere($queryBuilder->expr()->like('r.' . $field, ':' . $field));
+                $queryBuilder->setParameter($field, '%' . $searching[$field] . '%');
             }
         }
 
