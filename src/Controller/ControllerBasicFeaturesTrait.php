@@ -108,7 +108,7 @@ trait ControllerBasicFeaturesTrait
      */
     protected function createAnElement(Request $request, $element, $formClassName)
     {
-        $form = $this->createForm($formClassName, $element);
+        $form = $this->createForm($formClassName, $element, array('csrf_protection' => false, ));
 
         $form->submit($request->request->all(), false);
 
@@ -133,7 +133,9 @@ trait ControllerBasicFeaturesTrait
 
     /**
      * @param Request $request
-     * @param bool    $clearMissing
+     * @param bool $clearMissing
+     * @param $repositoryName
+     * @param $formClassName
      *
      * @return mixed|Form|\FOS\RestBundle\View\View
      */
